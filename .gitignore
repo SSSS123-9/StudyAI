@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Environment variables - API KEYS (never upload this!)
+.env
+.env.local
+.env.production
+
+# Build folder
+build/
+
+# Misc
+.DS_Store
+*.log

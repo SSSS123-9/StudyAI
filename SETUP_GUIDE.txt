@@ -1,0 +1,277 @@
+# 🎓 StudyAI Platform — Complete Setup Guide
+# Step-by-Step Instructions for VSCode
+
+================================================================
+## 📁 FINAL PROJECT STRUCTURE
+================================================================
+
+studyai/
+├── public/
+│   └── index.html              ← The HTML page React loads into
+├── src/
+│   ├── index.js                ← Entry point (starts the React app)
+│   ├── index.css               ← Global styles + Tailwind directives
+│   ├── App.jsx                 ← Root component (manages navigation + shared state)
+│   ├── components/
+│   │   ├── UI.jsx              ← Shared reusable components (Card, Btn, Input...)
+│   │   ├── Header.jsx          ← Top navigation bar
+│   │   ├── Sidebar.jsx         ← Left module navigation
+│   │   ├── DoubtSolver.jsx     ← Module 1: Multi-turn AI chat
+│   │   ├── QuizGenerator.jsx   ← Module 2: JSON-structured MCQ quiz
+│   │   ├── StudyPlanner.jsx    ← Module 3: Day-by-day study plan
+│   │   ├── ProgressTracker.jsx ← Module 4: Visual score tracking
+│   │   └── Summarizer.jsx      ← Module 5: Text → structured JSON
+│   └── utils/
+│       ├── claude.js           ← Claude API helper function
+│       └── constants.js        ← Shared colors + module definitions
+├── .env                        ← Your secret API key (NEVER share this)
+├── package.json                ← Project dependencies
+└── tailwind.config.js          ← Tailwind CSS configuration
+
+
+================================================================
+## 🛠️ STEP-BY-STEP SETUP IN VSCODE
+================================================================
+
+---
+### STEP 1: Install Required Tools
+---
+
+1. Install Node.js (if not already installed):
+   → Go to https://nodejs.org
+   → Download the "LTS" version
+   → Install it (just click Next, Next, Finish)
+   → To verify, open Terminal and type:
+        node --version
+        npm --version
+   → You should see version numbers (e.g. v18.0.0)
+
+2. Install VSCode (if not already):
+   → Go to https://code.visualstudio.com
+   → Download and install it
+
+---
+### STEP 2: Create the Project Folder
+---
+
+1. Open VSCode
+2. Open the Terminal inside VSCode:
+   → Menu: Terminal → New Terminal
+   → (Or press Ctrl + ` on Windows/Linux, Cmd + ` on Mac)
+
+3. Navigate to where you want to create the project:
+        cd Desktop
+   (or wherever you want it)
+
+4. Create a new React app:
+        npx create-react-app studyai
+
+5. Wait for it to finish (takes 1–2 minutes)
+
+6. Open the project in VSCode:
+        cd studyai
+        code .
+
+---
+### STEP 3: Install Tailwind CSS
+---
+
+In the VSCode terminal, run these commands ONE BY ONE:
+
+        npm install -D tailwindcss postcss autoprefixer
+        npx tailwindcss init
+
+---
+### STEP 4: Create the Folder Structure
+---
+
+In the terminal, run:
+
+        mkdir src/components
+        mkdir src/utils
+
+---
+### STEP 5: Copy All the Files
+---
+
+Now copy each file from this project into the correct location.
+Here is the exact mapping — for each file, the path tells you
+where to save it in VSCode:
+
+  FILE                        → SAVE AS
+  ─────────────────────────────────────────────────────────────
+  public/index.html           → replace the existing file
+  src/index.js                → replace the existing file
+  src/index.css               → replace the existing file
+  src/App.jsx                 → replace App.js (rename it to App.jsx)
+  src/components/UI.jsx       → new file
+  src/components/Header.jsx   → new file
+  src/components/Sidebar.jsx  → new file
+  src/components/DoubtSolver.jsx    → new file
+  src/components/QuizGenerator.jsx  → new file
+  src/components/StudyPlanner.jsx   → new file
+  src/components/ProgressTracker.jsx→ new file
+  src/components/Summarizer.jsx     → new file
+  src/utils/claude.js         → new file
+  src/utils/constants.js      → new file
+  tailwind.config.js          → replace the existing file
+  .env                        → replace the existing file
+
+HOW TO CREATE A NEW FILE IN VSCODE:
+  → In the left panel (Explorer), right-click the folder
+  → Click "New File"
+  → Type the filename and press Enter
+  → Paste the code content into the file
+  → Press Ctrl+S (or Cmd+S on Mac) to save
+
+---
+### STEP 6: Get Your Claude API Key
+---
+
+1. Go to: https://console.anthropic.com/
+2. Sign up or log in
+3. Click "API Keys" in the left sidebar
+4. Click "Create Key"
+5. Copy the key (it starts with "sk-ant-...")
+
+6. Open the .env file in VSCode
+7. Replace "your_api_key_here" with your actual key:
+
+        REACT_APP_ANTHROPIC_API_KEY=sk-ant-api03-xxxxxxxx...
+
+   ⚠️  IMPORTANT RULES FOR THE .env FILE:
+   - No spaces around the = sign
+   - No quotes around the key
+   - Never share this file or upload it to GitHub!
+
+---
+### STEP 7: Update package.json for Tailwind
+---
+
+Since create-react-app uses its own PostCSS setup,
+replace your tailwind.config.js content with the version
+from this project (which is already configured correctly).
+
+Also make sure your src/index.css starts with these 3 lines:
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+---
+### STEP 8: Install Tailwind PostCSS (if needed)
+---
+
+If you get a Tailwind-related error when running the app:
+
+        npm install tailwindcss@npm:@tailwindcss/postcss7-compat
+        npm install @tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+
+Alternatively, since this app uses mostly inline styles
+(which already work), you can skip Tailwind entirely and
+just remove the @tailwind lines from index.css.
+
+---
+### STEP 9: Run the App!
+---
+
+In the VSCode terminal:
+
+        npm start
+
+→ This will open http://localhost:3000 in your browser
+→ You should see the StudyAI Platform!
+→ The app reloads automatically when you save any file (Hot Reload)
+
+
+================================================================
+## 🐛 COMMON ERRORS AND FIXES
+================================================================
+
+ERROR: "Module not found: Can't resolve './components/DoubtSolver'"
+FIX:   Check the filename and folder. File names are case-sensitive!
+       Make sure "DoubtSolver.jsx" matches exactly.
+
+ERROR: "REACT_APP_ANTHROPIC_API_KEY is not defined"
+FIX:   Make sure your .env file is in the ROOT of the project
+       (same level as package.json), not inside src/.
+       Restart the dev server after editing .env: Ctrl+C then npm start
+
+ERROR: "Failed to fetch" when asking a question
+FIX:   Make sure your API key in .env is correct.
+       Check you have internet connection.
+       Check the browser console (F12 → Console) for details.
+
+ERROR: "Cannot parse JSON" in Quiz Generator
+FIX:   This is rare — Claude occasionally adds extra text.
+       Just click "Generate Quiz" again with the same topic.
+
+ERROR: App shows blank white screen
+FIX:   Open browser console (F12 → Console)
+       Look for the red error message
+       Most likely a missing import or typo in a file
+
+
+================================================================
+## 🧠 HOW TO EXPLAIN THIS PROJECT IN YOUR COURSE
+================================================================
+
+WHAT THE APP DOES:
+  A full-stack AI-powered study platform with 5 modules that
+  demonstrate different LLM engineering patterns.
+
+SDG ALIGNMENT:
+  SDG 4 — Quality Education
+  Makes quality tutoring accessible to all students,
+  regardless of economic background or location.
+
+TECHNICAL HIGHLIGHTS TO MENTION:
+
+  1. PROMPT ENGINEERING (Module 1 - Doubt Solver)
+     → Designed a system prompt with specific persona, tone,
+       and output format constraints
+
+  2. STRUCTURED JSON OUTPUT (Module 2 - Quiz Generator)
+     → Prompted Claude to return ONLY valid JSON
+     → Safely parsed the response with error handling
+
+  3. MULTI-TURN CONVERSATION (Module 1 - Doubt Solver)
+     → Passed full chat history to the API on every call
+     → Enables contextual follow-up questions
+
+  4. PROMPT CHAINING (Module 3 - Study Planner)
+     → Chained multiple user inputs into a rich prompt
+     → Output format specified in the system prompt
+
+  5. REAL-TIME DATA VISUALIZATION (Module 4 - Progress)
+     → Lifted state to parent component (App.jsx)
+     → Custom bar charts built with CSS width transitions
+
+  6. DOCUMENT ANALYSIS (Module 5 - Summarizer)
+     → Structured summarization with nested JSON schema
+     → Rendered different content types (lists, badges, cards)
+
+
+================================================================
+## 📚 WHAT EACH FILE TEACHES YOU
+================================================================
+
+claude.js       → How to call an LLM API (fetch, headers, body)
+constants.js    → DRY principle (Don't Repeat Yourself)
+UI.jsx          → Reusable components, props, useState
+App.jsx         → State management, lifting state, routing
+DoubtSolver.jsx → Multi-turn chat, useRef, useEffect
+QuizGenerator.jsx → JSON output, form state, conditional rendering
+StudyPlanner.jsx  → Multi-field forms, rich prompt building
+ProgressTracker.jsx → Derived data, visualizations
+Summarizer.jsx    → Nested JSON parsing, dynamic rendering
+
+
+================================================================
+## 🚀 NEXT STEPS (to make it even better)
+================================================================
+
+1. Add localStorage to save chat history between sessions
+2. Add user login (name + class) to personalize the planner
+3. Add a "subject selector" dropdown to the Doubt Solver
+4. Deploy to Vercel (free): https://vercel.com
+5. Add voice input using the Web Speech API
