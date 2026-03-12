@@ -1,3 +1,5 @@
 {
-  "buildCommand": "CI= npm run build"
+  "buildCommand": "react-scripts build",
+  "outputDirectory": "build"
 }
+
